@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="HardcodedText"
+    android:background="@color/blue"
+    tools:context=".act.MainActivity">
+
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/ivScan"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_scan"/>
+
+
+
+    <LinearLayout
+        android:layout_below="@+id/ivScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="注意：" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:text="1.请关闭室内所有光源，确保室内为黑暗环境" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="10dp"
+            android:text="2.打开检测装置，平滑的查看每个角落" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@android:color/white"
+            android:text="3.若发现屏幕内有红色斑点，或者应用发出滴滴报警声，说明探测到针孔摄像头" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/mBtnStart"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:text="开始检测"
+        android:layout_margin="10dp"
+        android:textSize="16sp"
+        android:background="@drawable/selector_red_corners_button"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+         />
+
+</RelativeLayout>
