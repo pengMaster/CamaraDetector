@@ -12,3 +12,21 @@
 <font color=#00ffff size=72>color=#00ffff</font>
 <font color=gray size=72>color=gray</font>
 <font color=#FF0000>  字体改成红色了 </font>
+
+| 图片 | 描述 |
+| ---- | ---- |
+|![baidu][baidu-logo] | 百度|
+
+
+
+我的小鱼你醒了 , 还认识早晨么?
+
+昨夜你曾说过 , 愿夜幕永不开启
+
+你的香腮边轻轻滑落的是你的泪 ? 还是我的泪?
+
+初吻吻别的那个季节不是已经哭过了么 ?
+
+我的指尖还记忆着 , 你慌乱的心跳
+
+温润的体香里 , 那一缕长发飘飘
