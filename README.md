@@ -13,11 +13,11 @@
 <font color=gray size=72>color=gray</font>
 <font color=#FF0000>  字体改成红色了 </font>
 
-| 图片 |
+
+
+|![baidu][https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png] |
 | ---- |
-|![baidu][baidu-logo] |
-
-
+| 图片 |
 
 我的小鱼你醒了 , 还认识早晨么?
 
