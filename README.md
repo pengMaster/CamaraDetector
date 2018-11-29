@@ -15,7 +15,7 @@
 
 | 心有猛虎，细嗅蔷薇 |
 | ---- |
-|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/shici.png) |
+|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/poem.png) |
 
 
 
