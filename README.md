@@ -17,7 +17,7 @@
 
 ![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png"百度logo")
 
-|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png"百度logo") |
+|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png) |
 | ---- |
 | 图片 |
 
