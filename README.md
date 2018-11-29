@@ -13,13 +13,11 @@
 <font color=gray size=72>color=gray</font>
 <font color=#FF0000>  字体改成红色了 </font>
 
-![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png)
-
-![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png"百度logo")
-
-|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/ic_ts.png) |
+| 心有猛虎，细嗅蔷薇 |
 | ---- |
-| 图片 |
+|![baidu](https://github.com/pengMaster/picApplyGit/blob/master/jokeImg/shici.png) |
+
+
 
 我的小鱼你醒了 , 还认识早晨么?
 
