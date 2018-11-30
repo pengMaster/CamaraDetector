@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:background="@color/blue"
+    android:orientation="horizontal"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="2018-11-11 10:20:33"
+        android:textColor="@color/color_white"
+        android:layout_marginStart="5dp"
+        android:textSize="14sp"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="初始化控件成功！"
+        android:layout_marginStart="25dp"
+        android:textColor="@color/color_white"
+        android:textSize="14sp"
+        android:layout_marginLeft="25dp" />
+</LinearLayout>

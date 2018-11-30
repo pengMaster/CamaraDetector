@@ -18,6 +18,7 @@
 
 
 
+
     <LinearLayout
         android:layout_below="@+id/ivScan"
         android:layout_width="match_parent"
