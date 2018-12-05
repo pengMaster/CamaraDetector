@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:focusableInTouchMode="false"
+    android:focusable="false"
+    android:descendantFocusability="blocksDescendants"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="11-11 10:20:33"
+        android:textColor="@color/black_34"
+        android:layout_marginStart="5dp"
+        android:textSize="12sp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_toEndOf="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="未发现异常."
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="56dp"
+        android:textColor="@color/red"
+        android:textSize="14sp"
+         />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="第 0 次"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="25dp"
+        android:textColor="@color/black_34"
+        android:textSize="12sp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="15dp" />
+</RelativeLayout>

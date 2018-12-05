@@ -58,5 +58,10 @@
     <!-- 半透明背景 -->
     <color name="transparent_23">#13000000</color>
 
+    <color name="red">#e2211c</color>
+    <color name="red_fe">#fe6b55</color>
+    <color name="hint_rad">#c25c59</color>
+    <color name="red_ff2">#ff2d55</color>
+    <color name="black_34">#341b1c</color>
 
 </resources>
