@@ -107,7 +107,6 @@ class MainActivity : AppCompatActivity() {
      * 上传图片
      */
     private fun upLoadPic(key: String, value: File, imei: String) {
-
         OkHttpUtils.post().addParams("dir", imei)
                 .addFile(key, value.absolutePath, value)
                 .url(Api.baseUrl)
