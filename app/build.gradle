@@ -10,8 +10,8 @@ android {
         applicationId "king.bird.camaradetector"
         minSdkVersion 19
         targetSdkVersion 28
-        versionCode 20181205
-        versionName "1.0.3"
+        versionCode 20190409
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         ndk {

